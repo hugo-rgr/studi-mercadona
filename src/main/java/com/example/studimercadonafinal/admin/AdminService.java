@@ -23,7 +23,7 @@ public class AdminService {
         return adminRepository.findById(id);
     }
 
-    public Admin findAdminByLogin(String login) {
+    public Optional<Admin> findAdminByLogin(String login) {
         return adminRepository.findByLogin(login);
     }
 

@@ -32,10 +32,10 @@ public class Admin {
     }
 
     public void setLogin(String login) {
-        if (login.matches("^[a-z0-9_-]+$")) {
+        if (login.matches("^[A-Za-z0-9_-]+$")) {
             this.login = login;
         } else {
-            throw new IllegalArgumentException("Login should only include lowercase letters, numbers, underscores, and hyphens");
+            throw new IllegalArgumentException("Login should only include letters, numbers, underscores, and hyphens");
         }
     }
 
@@ -45,7 +45,7 @@ public class Admin {
 
     public void setPass(String pass) {
 
-        if (pass.matches("^[a-z0-9_-]+$")) {
+        if (pass.matches("^[A-Za-z0-9_-]+$")) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             this.pass = passwordEncoder.encode(pass);
         } else {

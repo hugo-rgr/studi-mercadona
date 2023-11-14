@@ -2,7 +2,9 @@ package com.example.studimercadonafinal.admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    Admin findByLogin(String login);
+    Optional<Admin> findByLogin(String login);
 }

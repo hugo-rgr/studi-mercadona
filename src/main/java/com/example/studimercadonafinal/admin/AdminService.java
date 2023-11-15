@@ -27,9 +27,6 @@ public class AdminService {
         return adminRepository.findByLogin(login);
     }
 
-    public void saveAdmin(Admin category) {
-        adminRepository.save(category);
-    }
 
     public Admin updateAdmin(Long id, Admin adminDetails) {
         Optional<Admin> admin = adminRepository.findById(id);

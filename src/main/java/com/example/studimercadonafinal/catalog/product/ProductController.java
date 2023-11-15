@@ -36,7 +36,7 @@ public class ProductController {
         return lp;
     }
 
-    @GetMapping("/getALL/category/{categoryLabel}")
+    @GetMapping("/getAll/category/{categoryLabel}")
     public List<Product> getAllProductsByCategoryLabel(@PathVariable String categoryLabel){
         return productService.getAllProductsByCategory(categoryLabel);
     }

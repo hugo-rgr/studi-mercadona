@@ -27,10 +27,7 @@ public class Promotion {
 
     private LocalDate endDate;
 
+    @Column(nullable = false)
     private int discountPercentage;
-
-    @OneToOne(targetEntity = Product.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="product_id", unique = true, nullable = false)
-    private Product product;
 
 }

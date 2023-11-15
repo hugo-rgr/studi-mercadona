@@ -28,10 +28,6 @@ public class PromotionService {
         return promotionRepository.findAll();
     }
 
-    public Optional<Promotion> getPromotionByProductId(Long id) {
-        return promotionRepository.findByProductId(id);
-    }
-
     public Promotion updatePromotion(Long id, Promotion promotionDetails) {
         Optional<Promotion> promotion = promotionRepository.findById(id);
         if (promotion.isPresent()) {
@@ -39,7 +35,6 @@ public class PromotionService {
             existingPromotion.setStartDate(promotionDetails.getStartDate());
             existingPromotion.setEndDate(promotionDetails.getEndDate());
             existingPromotion.setDiscountPercentage(promotionDetails.getDiscountPercentage());
-            existingPromotion.setProduct(promotionDetails.getProduct());
             return promotionRepository.save(existingPromotion);
         }
         return null;
@@ -52,10 +47,4 @@ public class PromotionService {
     public void deleteAllPromotions() {
         promotionRepository.deleteAll();
     }
-
-    public void deletePromotionByProductId(Long id) {
-        promotionRepository.deleteByProductId(id);
-    }
-
-
 }

@@ -34,9 +34,19 @@ public class DataInserts implements CommandLineRunner {
         categoryService.createCategory(catBakery);
     }
 
+    public void dataInsertsForPromotion() {
+        Promotion prodTomatoPromotion = new Promotion();
+        prodTomatoPromotion.setStartDate(LocalDate.parse("2023-11-14"));
+        prodTomatoPromotion.setEndDate(LocalDate.parse("2023-12-31"));
+        prodTomatoPromotion.setDiscountPercentage(10);
+        promotionService.createPromotion(prodTomatoPromotion);
+    }
+
     public void dataInsertsForProduct() {
         Category catFruits = categoryService.getCategoryById(1L).orElseThrow();
         Category catBakery = categoryService.getCategoryById(2L).orElseThrow();
+
+        Promotion prodTomatoPromotion = promotionService.getPromotionById(1L).orElseThrow();
 
         Product prodApple = new Product();
         prodApple.setLabel("Lot de 6 pommes Golden Delicious Bio");
@@ -48,38 +58,27 @@ public class DataInserts implements CommandLineRunner {
 
         Product prodTomato = new Product();
         prodTomato.setLabel("Tomates cerises mélangées 500g");
-        prodTomato.setDescription("Cultivées en France. Prix au kg: 5.99kg");
+        prodTomato.setDescription("Cultivées en France. Prix au kg: 5.99 €");
         prodTomato.setPrice(3.25);
         prodTomato.setImageURL("");
         prodTomato.setCategory(catFruits);
+        prodTomato.setPromotion(prodTomatoPromotion);
         productService.createProduct(prodTomato);
 
         Product prodPainChocolat = new Product();
         prodPainChocolat.setLabel("4 pains au chocolat");
-        prodPainChocolat.setDescription("Le classique!");
+        prodPainChocolat.setDescription("");
         prodPainChocolat.setPrice(3.60);
         prodPainChocolat.setImageURL("https://upload.wikimedia.org/wikipedia/commons/a/ac/Corbeille_de_pains_au_chocolat.jpg?20200131201819");
         prodPainChocolat.setCategory(catBakery);
         productService.createProduct(prodPainChocolat);
 
-
-    }
-
-    public void dataInsertsForPromotion() {
-        Product prodTomato = productService.getProductById(2L).orElseThrow();
-
-        Promotion prodTomatoPromotion = new Promotion();
-        prodTomatoPromotion.setProduct(prodTomato);
-        prodTomatoPromotion.setStartDate(LocalDate.parse("2023-11-14"));
-        prodTomatoPromotion.setEndDate(LocalDate.parse("2023-12-31"));
-        prodTomatoPromotion.setDiscountPercentage(10);
-        promotionService.createPromotion(prodTomatoPromotion);
     }
 
     @Override
     public void run(String... args) throws Exception {
         dataInsertsForCategory();
-        dataInsertsForProduct();
         dataInsertsForPromotion();
+        dataInsertsForProduct();
     }
 }

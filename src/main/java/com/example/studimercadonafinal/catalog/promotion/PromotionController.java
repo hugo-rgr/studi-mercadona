@@ -27,11 +27,6 @@ public class PromotionController {
         return promotionService.getAllPromotions();
     }
 
-    @GetMapping("/get/product/{productId}")
-    public Optional<Promotion> getPromotionByProductLabel(@PathVariable Long productId) {
-        return promotionService.getPromotionByProductId(productId);
-    }
-
     @PutMapping("/update/{id}")
     public Promotion updatePromotion(@PathVariable Long id, @RequestBody Promotion promotionDetails) {
         return promotionService.updatePromotion(id, promotionDetails);
@@ -46,11 +41,6 @@ public class PromotionController {
     public String deleteAllPromotions() {
         promotionService.deleteAllPromotions();
         return "All promotions have been deleted successfully.";
-    }
-
-    @DeleteMapping("/deleteAll/product/{productId}")
-    public void deletePromotionByProductId(@PathVariable Long productId) {
-        promotionService.deletePromotionByProductId(productId);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,7 @@ public class CatalogController {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("categories", categories);
         model.addAttribute("products", products);
+        model.addAttribute("currentDate", LocalDate.now());
         return "catalog";
     }
 

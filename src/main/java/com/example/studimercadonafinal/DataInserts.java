@@ -36,10 +36,16 @@ public class DataInserts implements CommandLineRunner {
 
     public void dataInsertsForPromotion() {
         Promotion prodTomatoPromotion = new Promotion();
-        prodTomatoPromotion.setStartDate(LocalDate.parse("2023-11-14"));
-        prodTomatoPromotion.setEndDate(LocalDate.parse("2023-12-31"));
+        prodTomatoPromotion.setStartDate(LocalDate.parse("2023-11-13"));
+        prodTomatoPromotion.setEndDate(LocalDate.parse("2024-12-31"));
         prodTomatoPromotion.setDiscountPercentage(10);
         promotionService.createPromotion(prodTomatoPromotion);
+
+        Promotion prodPainChocolatPromotion = new Promotion();
+        prodPainChocolatPromotion.setStartDate(LocalDate.parse("2022-01-23"));
+        prodPainChocolatPromotion.setEndDate(LocalDate.parse("2022-12-31"));
+        prodPainChocolatPromotion.setDiscountPercentage(25);
+        promotionService.createPromotion(prodPainChocolatPromotion);
     }
 
     public void dataInsertsForProduct() {
@@ -47,6 +53,7 @@ public class DataInserts implements CommandLineRunner {
         Category catBakery = categoryService.getCategoryById(2L).orElseThrow();
 
         Promotion prodTomatoPromotion = promotionService.getPromotionById(1L).orElseThrow();
+        Promotion prodPainChocolatPromotion = promotionService.getPromotionById(2L).orElseThrow();
 
         Product prodApple = new Product();
         prodApple.setLabel("Lot de 6 pommes Golden Delicious Bio");
@@ -71,6 +78,7 @@ public class DataInserts implements CommandLineRunner {
         prodPainChocolat.setPrice(3.60);
         prodPainChocolat.setImageURL("https://upload.wikimedia.org/wikipedia/commons/a/ac/Corbeille_de_pains_au_chocolat.jpg?20200131201819");
         prodPainChocolat.setCategory(catBakery);
+        prodPainChocolat.setPromotion(prodPainChocolatPromotion);
         productService.createProduct(prodPainChocolat);
 
     }

@@ -2,7 +2,6 @@ package com.example.studimercadonafinal.catalog.product;
 
 import com.example.studimercadonafinal.catalog.category.Category;
 import com.example.studimercadonafinal.catalog.promotion.Promotion;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

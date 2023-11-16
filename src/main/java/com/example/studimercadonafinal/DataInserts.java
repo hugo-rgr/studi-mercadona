@@ -27,8 +27,8 @@ public class DataInserts implements CommandLineRunner {
     }
 
     public void dataInsertsForCategory() {
-        Category catFruits = new Category("Fruits and vegetables");
-        Category catBakery = new Category("Bakery");
+        Category catFruits = new Category("Fruits et légumes");
+        Category catBakery = new Category("Produits de boulangerie");
 
         categoryService.createCategory(catFruits);
         categoryService.createCategory(catBakery);
@@ -67,14 +67,14 @@ public class DataInserts implements CommandLineRunner {
         prodTomato.setLabel("Tomates cerises mélangées 500g");
         prodTomato.setDescription("Cultivées en France. Prix au kg: 5.99 €");
         prodTomato.setPrice(3.25);
-        prodTomato.setImageURL("");
+        //prodTomato.setImageURL("");
         prodTomato.setCategory(catFruits);
         prodTomato.setPromotion(prodTomatoPromotion);
         productService.createProduct(prodTomato);
 
         Product prodPainChocolat = new Product();
         prodPainChocolat.setLabel("4 pains au chocolat");
-        prodPainChocolat.setDescription("");
+        //prodPainChocolat.setDescription("");
         prodPainChocolat.setPrice(3.60);
         prodPainChocolat.setImageURL("https://upload.wikimedia.org/wikipedia/commons/a/ac/Corbeille_de_pains_au_chocolat.jpg?20200131201819");
         prodPainChocolat.setCategory(catBakery);

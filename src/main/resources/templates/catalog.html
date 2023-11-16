@@ -28,7 +28,7 @@
     <div class="form-group">
         <label for="categoryFilter">Choisir une catégorie:</label>
         <select class="form-control" id="categoryFilter">
-            <option value="all">All Categories</option>
+            <option value="all">Toutes les catégories</option>
 
             <th:block th:each="category : ${categories}">
                 <option th:value="${category.label}" th:text="${category.label}"></option>

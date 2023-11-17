@@ -1,10 +1,14 @@
 package com.example.studimercadonafinal.security.admin;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class Admin {
     @SequenceGenerator(
             name = "admin",
@@ -19,28 +23,12 @@ public class Admin {
     private String login;
     private String pass;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
     public void setLogin(String login) {
         if (login.matches("^[A-Za-z0-9_-]+$")) {
             this.login = login;
         } else {
             throw new IllegalArgumentException("Login should only include letters, numbers, underscores, and hyphens");
         }
-    }
-
-    public String getPass() {
-        return pass;
     }
 
     public void setPass(String pass) {

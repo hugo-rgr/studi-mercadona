@@ -29,11 +29,7 @@ public class ProductController {
 
     @GetMapping("/getAll")
     public List<Product> getAllProducts() {
-        List<Product> lp = productService.getAllProducts();
-        for(Product p: lp) {
-            p.getLabel();
-        }
-        return lp;
+        return productService.getAllProducts();
     }
 
     @GetMapping("/getAll/category/{categoryLabel}")

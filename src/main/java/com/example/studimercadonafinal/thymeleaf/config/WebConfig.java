@@ -1,4 +1,4 @@
-package com.example.studimercadonafinal.config;
+package com.example.studimercadonafinal.thymeleaf.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

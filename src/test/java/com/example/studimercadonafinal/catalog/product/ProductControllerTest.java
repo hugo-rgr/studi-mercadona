@@ -2,10 +2,16 @@ package com.example.studimercadonafinal.catalog.product;
 
 import com.example.studimercadonafinal.catalog.category.Category;
 import com.example.studimercadonafinal.catalog.category.CategoryService;
+import com.example.studimercadonafinal.catalog.promotion.Promotion;
+import com.example.studimercadonafinal.catalog.promotion.PromotionService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -17,6 +23,9 @@ class ProductControllerTest {
     @Mock
     private CategoryService categoryService;
 
+    @Mock
+    private PromotionService promotionService;
+    
     @InjectMocks
     private ProductController productController;
 
@@ -26,27 +35,90 @@ class ProductControllerTest {
 
     @Test
     void testUpdateProduct() {
-        Long productId = 1L;
-        Product updatedProduct = new Product();
-        updatedProduct.setLabel("Updated Product");
-        updatedProduct.setPrice(25.99);
 
         Category category = new Category("Test Category");
         categoryService.createCategory(category);
 
-        // Create a Product and associate it with the Category
-        Product product = new Product();
-        product.setLabel("Test Product");
-        product.setDescription("Product description");
-        product.setPrice(20.0);
-        product.setImageURL("test.jpg");
-        product.setCategory(category);
+        // without promotion
+        Long productId = 1L;
+        Product product1 = new Product();
+        product1.setLabel("Updated Product");
+        product1.setPrice(25.99);
+        product1.setLabel("Test Product");
+        product1.setDescription("Product description");
+        product1.setPrice(20.0);
+        product1.setImageURL("test.jpg");
+        product1.setCategory(category);
 
-        when(productService.updateProduct(eq(productId), any(Product.class))).thenReturn(updatedProduct);
+        // with promotion
+        Promotion promotion = new Promotion();
+        promotion.setStartDate(LocalDate.parse("2023-11-13"));
+        promotion.setEndDate(LocalDate.parse("2024-12-31"));
+        promotion.setDiscountPercentage(10);
+        promotionService.createPromotion(promotion);
 
-        Product response = productController.updateProduct(productId, updatedProduct);
+        Long product2Id = 2L;
+        Product product2 = new Product();
+        product2.setLabel("Test Product 5555");
+        product2.setDescription("Description lorem ipsum");
+        product2.setPrice(13.55);
+        product2.setImageURL("test42.jpg");
+        product2.setCategory(category);
+        product2.setPromotion(promotion);
 
+
+
+        when(productService.updateProduct(eq(productId), any(Product.class))).thenReturn(product1);
+
+        Product response = productController.updateProduct(productId, product1);
         verify(productService, times(1)).updateProduct(eq(productId), any(Product.class));
+
+        when(productService.updateProduct(eq(product2Id), any(Product.class))).thenReturn(product2);
+
+        Product response2 = productController.updateProduct(product2Id, product1);
+        verify(productService, times(1)).updateProduct(eq(product2Id), any(Product.class));
+    }
+
+
+    @Test
+    void testGetAllCategories() {
+        Category category = new Category("Test Category");
+        categoryService.createCategory(category);
+
+        // without promotion
+        Long productId = 1L;
+        Product product1 = new Product();
+        product1.setLabel("Updated Product");
+        product1.setPrice(25.99);
+        product1.setLabel("Test Product");
+        product1.setDescription("Product description");
+        product1.setPrice(20.0);
+        product1.setImageURL("test.jpg");
+        product1.setCategory(category);
+
+        // with promotion
+        Promotion promotion = new Promotion();
+        promotion.setStartDate(LocalDate.parse("2023-11-13"));
+        promotion.setEndDate(LocalDate.parse("2024-12-31"));
+        promotion.setDiscountPercentage(10);
+        promotionService.createPromotion(promotion);
+
+        Long product2Id = 2L;
+        Product product2 = new Product();
+        product2.setLabel("Test Product 5555");
+        product2.setDescription("Description lorem ipsum");
+        product2.setPrice(13.55);
+        product2.setImageURL("test42.jpg");
+        product2.setCategory(category);
+        product2.setPromotion(promotion);
+
+        List<Product> products = Arrays.asList(product1, product2);
+
+        when(productService.getAllProducts()).thenReturn(products);
+
+        List<Product> response = productController.getAllProducts();
+
+        verify(productService, times(1)).getAllProducts();
     }
 }
 

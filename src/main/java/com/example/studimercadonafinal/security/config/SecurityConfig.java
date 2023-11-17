@@ -1,4 +1,4 @@
-package com.example.studimercadonafinal.config;
+package com.example.studimercadonafinal.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {"/",
-            "/login"
+            "/login",
+            "/product/getAll/category/**"
     };
 
     private UserDetailsService userDetailsService;
@@ -48,10 +49,6 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/admin-dashboard")
-                                .permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
                 );
         return http.build();

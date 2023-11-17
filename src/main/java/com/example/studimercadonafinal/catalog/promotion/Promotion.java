@@ -1,5 +1,6 @@
 package com.example.studimercadonafinal.catalog.promotion;
 
+import com.example.studimercadonafinal.catalog.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +14,12 @@ import java.time.LocalDate;
 @Getter
 @Check(constraints = "start_date <= end_date")
 public class Promotion {
-    @Id
     @SequenceGenerator(
             name = "promotion",
             schema = "public",
             allocationSize = 1
     )
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

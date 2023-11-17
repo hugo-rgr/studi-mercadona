@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/promotion")
@@ -35,6 +36,11 @@ public class PromotionController {
     @DeleteMapping("/delete/{id}")
     public void deletePromotion(@PathVariable Long id) {
         promotionService.deletePromotion(id);
+    }
+
+    @DeleteMapping("/deleteAllByIds")
+    public void deleteAllPromotionByIds(@RequestParam Set<Long> ids) {
+        promotionService.deleteAllPromotionsByIds(ids);
     }
 
     @DeleteMapping("/deleteAll")

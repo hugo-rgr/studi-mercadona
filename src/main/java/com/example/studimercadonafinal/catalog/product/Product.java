@@ -13,12 +13,12 @@ import org.hibernate.annotations.NotFoundAction;
 @Setter
 @Getter
 public class Product {
-    @Id
     @SequenceGenerator(
             name = "product",
             schema = "public",
             allocationSize = 1
     )
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -37,13 +37,5 @@ public class Product {
     @JoinColumn(name="promotion_id")
     @NotFound(action= NotFoundAction.IGNORE)
     private Promotion promotion;
-
-    //public Product(String label, String description, Double price, String imageURL, Category category) {
-    //    this.label = label;
-    //    this.description = description;
-    //    this.price = price;
-    //    this.imageURL = imageURL;
-    //    this.category = category;
-    //}
 
 }

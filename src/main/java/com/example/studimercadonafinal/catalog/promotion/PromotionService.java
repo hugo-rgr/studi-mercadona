@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PromotionService {
@@ -43,6 +44,8 @@ public class PromotionService {
     public void deletePromotion(Long id) {
         promotionRepository.deleteById(id);
     }
+
+    public void deleteAllPromotionsByIds(Set<Long> ids){ promotionRepository.deleteAllById(ids);}
 
     public void deleteAllPromotions() {
         promotionRepository.deleteAll();

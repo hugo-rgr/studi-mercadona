@@ -1,4 +1,4 @@
-package com.example.studimercadonafinal.admin;
+package com.example.studimercadonafinal.security.admin;
 
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -6,12 +6,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 @Table
 public class Admin {
-    @Id
     @SequenceGenerator(
             name = "admin",
             schema = "public",
             allocationSize = 1
     )
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

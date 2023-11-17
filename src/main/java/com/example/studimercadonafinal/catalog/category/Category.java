@@ -8,12 +8,12 @@ import lombok.*;
 @Setter
 @Getter
 public class Category {
-    @Id
     @SequenceGenerator(
             name = "category",
             schema = "public",
             allocationSize = 1
     )
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

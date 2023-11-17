@@ -57,9 +57,9 @@ public class ProductController {
         return "All products have been deleted successfully.";
     }
 
-    @DeleteMapping("/deleteAll/category/{categoryLabel}")
-    public String deleteProductsByCategoryLabel(@PathVariable String categoryLabel) {
-        productService.deleteAllProductsByCategoryLabel(categoryLabel);
-        return "All products for the category" + categoryLabel + "have been deleted successfully.";
+    @DeleteMapping("/deleteAll/category/{categoryId}")
+    public String deleteProductsByCategoryLabel(@RequestParam Long categoryId) {
+        productService.deleteAllProductsByCategoryLabel(categoryId);
+        return "All products for selected category have been deleted successfully.";
     }
 }

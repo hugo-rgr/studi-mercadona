@@ -1,4 +1,4 @@
-package com.example.studimercadonafinal.admin;
+package com.example.studimercadonafinal.security.admin;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

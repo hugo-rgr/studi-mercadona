@@ -41,6 +41,7 @@ public class ProductService {
             existingProduct.setPrice(productDetails.getPrice());
             existingProduct.setImageURL(productDetails.getImageURL());
             existingProduct.setCategory(productDetails.getCategory());
+            existingProduct.setPromotion(productDetails.getPromotion());
             return productRepository.save(existingProduct);
         }
         return null;
@@ -54,8 +55,8 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public void deleteAllProductsByCategoryLabel(String categoryLabel) {
-        productRepository.deleteByCategoryLabel(categoryLabel);
+    public void deleteAllProductsByCategoryLabel(Long categoryId) {
+        productRepository.deleteByCategoryLabel(categoryId);
     }
 
 }

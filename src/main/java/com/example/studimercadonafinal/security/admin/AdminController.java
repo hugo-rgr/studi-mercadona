@@ -1,4 +1,4 @@
-package com.example.studimercadonafinal.admin;
+package com.example.studimercadonafinal.security.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

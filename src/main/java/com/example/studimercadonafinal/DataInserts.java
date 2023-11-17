@@ -1,5 +1,7 @@
 package com.example.studimercadonafinal;
 
+import com.example.studimercadonafinal.security.admin.Admin;
+import com.example.studimercadonafinal.security.admin.AdminService;
 import com.example.studimercadonafinal.catalog.category.Category;
 import com.example.studimercadonafinal.catalog.category.CategoryService;
 import com.example.studimercadonafinal.catalog.product.Product;
@@ -15,16 +17,31 @@ import java.time.LocalDate;
 @Component
 public class DataInserts implements CommandLineRunner {
 
+    private AdminService adminService;
     private CategoryService categoryService;
     private PromotionService promotionService;
     private ProductService productService;
 
     @Autowired
-    public DataInserts(CategoryService categoryService, PromotionService promotionService, ProductService productService) {
+    public DataInserts(AdminService adminService, CategoryService categoryService, PromotionService promotionService, ProductService productService) {
+        this.adminService = adminService;
         this.categoryService = categoryService;
         this.promotionService = promotionService;
         this.productService = productService;
     }
+
+    public void dataInsertsForAdmin() {
+        Admin admin1 = new Admin();
+        admin1.setLogin("admin");
+        admin1.setPass("lorem5ipsum");
+        adminService.createAdmin(admin1);
+
+        Admin admin2 = new Admin();
+        admin2.setLogin("john_doe");
+        admin2.setPass("coolmdp");
+        adminService.createAdmin(admin2);
+    }
+
 
     public void dataInsertsForCategory() {
         Category catFruits = new Category("Fruits et légumes");
@@ -67,7 +84,7 @@ public class DataInserts implements CommandLineRunner {
         prodTomato.setLabel("Tomates cerises mélangées 500g");
         prodTomato.setDescription("Cultivées en France. Prix au kg: 5.99 €");
         prodTomato.setPrice(3.25);
-        //prodTomato.setImageURL("");
+        //prodTomato.setImageURL(""); // didn't add one to show image alternative
         prodTomato.setCategory(catFruits);
         prodTomato.setPromotion(prodTomatoPromotion);
         productService.createProduct(prodTomato);
@@ -85,6 +102,7 @@ public class DataInserts implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        dataInsertsForAdmin();
         dataInsertsForCategory();
         dataInsertsForPromotion();
         dataInsertsForProduct();

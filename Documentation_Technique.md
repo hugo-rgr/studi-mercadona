@@ -36,7 +36,9 @@ mot de passe : lorem5ipsum
 
 #### Validation des données
 
-Les données
+Tous les objets ont des champs nécessaires à remplir dans leurs formulaires. Les logins, mots de passe,
+ainsi que pour le produit: le nom, la catégorie et le prix sont obligatoires, et enfin pour une promotion,
+tous les champs sont obligatoires.
 
 
 #### Sécurité des Fichiers et Images
@@ -52,3 +54,5 @@ malveillants.
 L'administrateur aura la possibilité de modifier ou supprimer des produits.
 Il pourra aussi créer, modifier et supprimer des catégories.
 On pourra aussi faire une barre de recherche pour les produits.
+
+Pour la sécurité, on pourra aussi implémenter l'authentification par token.

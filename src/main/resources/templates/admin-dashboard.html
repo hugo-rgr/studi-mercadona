@@ -31,6 +31,11 @@
 <!-- Product table -->
 <div class="container mt-5">
   <h2>Produits</h2>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+    </div>
+  </div>
   <div class="row mt-3">
     <div class="col">
       <table class="table">
@@ -54,6 +59,57 @@
   </div>
 </div>
 
+
+
+<!-- Modal for adding products -->
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProductModalLabel">Créer un produit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="productLabel">Nom du produit</label>
+          <input type="text" class="form-control" id="productLabel" required>
+        </div>
+        <div class="form-group">
+          <label for="productCategoryLabel">Catégorie</label>
+          <input type="text" class="form-control" id="productCategoryLabel" required>
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price</label>
+          <input type="number" min="0" class="form-control" id="productPrice" required>
+        </div>
+        <div class="form-group">
+          <label for="productDescription">Description</label>
+          <input type="text" class="form-control" id="productDescription" required>
+        </div>
+        <div class="form-group">
+          <label for="productImageURL">Image URL</label>
+          <input type="text" class="form-control" id="productImageURL" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" id="saveProduct">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <!-- Modal for adding promotions -->
 <div class="modal fade" id="addPromotionModal" tabindex="-1" role="dialog" aria-labelledby="addPromotionModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -70,16 +126,16 @@
           <input type="number" min="0" max="100" class="form-control" id="productPromotionDp" required>
         </div>
         <div class="form-group">
-          <label for="productPromotionStart">Date de début:</label>
+          <label for="productPromotionStart">Date de début</label>
           <input type="date" class="form-control" id="productPromotionStart" required>
         </div>
         <div class="form-group">
-          <label for="productPromotionEnd">Date de fin:</label>
+          <label for="productPromotionEnd">Date de fin</label>
           <input type="date" class="form-control" id="productPromotionEnd" required>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
         <button type="button" class="btn btn-primary" id="savePromotion">Enregistrer</button>
       </div>
     </div>
@@ -89,7 +145,6 @@
 
 <script>
   $(document).ready(function () {
-
     // Fetch and display products and associated promotions
     function fetchProducts() {
       $.ajax({
@@ -116,6 +171,96 @@
     }
 
     fetchProducts();
+
+
+    // Show add product modal
+    $('#addProductModal').on('shown.bs.modal', function () {
+      $('#productLabel').val('');
+      $('#productCategoryLabel').val('');
+      $('#productPrice').val('');
+      $('#productDescription').val('');
+      $('#productImageURL').val('');
+    });
+
+    // Save Product
+    $('#saveProduct').on('click', function () {
+      var productLabel = $('#productLabel').val();
+      var productCategoryLabel = $('#productCategoryLabel').val();
+      var productPrice = $('#productPrice').val();
+      productPrice = parseFloat(productPrice).toFixed(2);
+      var productDescription = $('#productDescription').val();
+      var productImageURL = $('#productImageURL').val();
+
+      console.log("aaaaa");
+
+
+      if (productLabel && !isNaN(productPrice) && productCategoryLabel) {
+
+        $.ajax({
+          url: '/category/getAll',
+          type: 'GET',
+          dataType: 'json',
+          success: function (categories) {
+
+            console.log(productCategoryLabel);
+            console.log(categories);
+
+            // if productCategoryLabel in category
+            var productCategoryId = null;
+
+            var found = false;
+            for(var i = 0; i < categories.length; i++){
+              if(found == false && categories[i].label === productCategoryLabel){
+                console.log("CATEG" + categories[i].label);
+                console.log("CATEG2" + productCategoryLabel);
+                productCategoryId = categories[i].id;
+                found = true;
+              }
+            }
+
+            console.log("bbbbbbbbbbb" + found);
+
+
+            if(found == true) {
+              var res = JSON.stringify({
+                "label": productLabel,
+                "description": productDescription,
+                "price": productPrice,
+                "imageURL": productImageURL,
+                "category": {"id": productCategoryId, "label": productCategoryLabel}
+              });
+              $.ajax({
+                url: '/product/create',
+                method: 'POST',
+                contentType: "application/json; charset=utf-8",
+                data: res,
+                success: function () {
+                  $('#addProductModal').modal('hide');
+                  fetchProducts();
+                },
+                error: function (error) {
+                  console.error('Error adding product:', error);
+                }
+              });
+            } else {
+              alert("Veuillez entrer un nom de produit, un nom de catégorie existant et un prix");
+            }
+          }
+        });
+      } else {
+        alert("Veuillez entrer un nom de produit, un nom de catégorie existant et un prix");
+      }
+
+    });
+
+
+
+
+
+
+
+
+
 
     // Show add promotion modal
     $('#addPromotionModal').on('shown.bs.modal', function () {

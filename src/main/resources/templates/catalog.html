@@ -61,7 +61,7 @@
             <!-- apply promotion -->
             <th:block th:if="${pr.promotion != null and currentDate >= pr.promotion.startDate and currentDate <= pr.promotion.endDate}">
                 <th:block th:with="formerPrice = ${pr.price}, dp = ${pr.promotion.discountPercentage}, newPrice = ${formerPrice * (1.0 - (dp / 100.0))}">
-                    <td th:text="${#numbers.formatDecimal(newPrice,1,2)} + ' €'" th:style="'color: red;'"></td>
+                    <td th:text="${#numbers.formatDecimal(newPrice,1,2)} + ' €'" th:style="'color: red; font-weight: bold;'"></td>
                 </th:block>
             </th:block>
             <!-- or else just put the normal price -->
